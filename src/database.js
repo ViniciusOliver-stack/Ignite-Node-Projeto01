@@ -33,4 +33,23 @@ export class Database {
     this.#persist();
     return data;
   }
+
+  delete(table, id) {
+    const rowIndex = this.#database[table].findIndex((row) => row.id === id);
+
+    if (rowIndex > -1) {
+      this.#database[table].splice(rowIndex, 1);
+      this.#persist();
+    }
+  }
+
+  update(table, id, data) {
+    const rowIndex = this.#database[table].findIndex((row) => row.id === id);
+
+    if (rowIndex > -1) {
+      const existTask = this.#database[table][rowIndex];
+      this.#database[table][rowIndex] = { ...existTask, ...data };
+      this.#persist();
+    }
+  }
 }
