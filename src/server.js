@@ -11,11 +11,11 @@ const server = http.createServer(async (request, response) => {
     return route.method === method && route.path.test(url);
   });
 
-  const routeParams = request.url.match(route.path);
-
-  console.log(routeParams);
-
   if (route) {
+    const routeParams = request.url.match(route.path);
+
+    request.params = { ...routeParams.groups };
+
     return route.handler(request, response);
   }
 
