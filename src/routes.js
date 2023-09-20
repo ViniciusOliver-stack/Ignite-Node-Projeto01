@@ -32,7 +32,36 @@ export const routes = [
   },
   {
     method: "DELETE",
-    path: buildRoutePath("/tasks/:id"),
-    handler: (request, response) => {},
+    path: buildRoutePath("/task/:id"),
+    handler: (request, response) => {
+      const { id } = request.params;
+      database.delete("tasks", id);
+      return response.writeHead(204).end();
+    },
+  },
+  {
+    method: "PUT",
+    path: buildRoutePath("/task/:id"),
+    handler: (request, response) => {
+      const { id } = request.params;
+      const { title, description } = request.body;
+
+      const existTask = database.select("tasks").find((task) => task.id === id);
+
+      if (!existTask) {
+        return response.writeHead(404).end("Tarefa não encontrada.");
+      }
+
+      const updatedTask = {
+        ...existTask,
+        title: title !== undefined ? title : existTask.title,
+        description:
+          description !== undefined ? description : existTask.description,
+      };
+
+      database.update("tasks", id, updatedTask);
+
+      return response.writeHead(202).end();
+    },
   },
 ];
