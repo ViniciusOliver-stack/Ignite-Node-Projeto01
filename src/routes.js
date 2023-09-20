@@ -57,6 +57,7 @@ export const routes = [
         title: title !== undefined ? title : existTask.title,
         description:
           description !== undefined ? description : existTask.description,
+        updated_at: new Date(),
       };
 
       database.update("tasks", id, updatedTask);
