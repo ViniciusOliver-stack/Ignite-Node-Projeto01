@@ -11,6 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "crypto": "^1.0.1"
+    "crypto": "^1.0.1",
+    "csv-generate": "^4.2.8",
+    "csv-parse": "^5.5.0",
+    "node-fetch": "^3.3.2"
   }
 }
